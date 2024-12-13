@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Services</title>
+</head>
+<body>
+    <h1>Service List</h1>
+    <a href="{% url 'service_create' %}">Create New Service</a>
+    <ul>
+        {% for service in services %}
+            <li>
+                <a href="{% url 'service_detail' service.pk %}">{{ service.name }}</a>
+                <a href="{% url 'service_update' service.pk %}">Edit</a>
+                <form action="{% url 'service_delete' service.pk %}" method="post" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit">Delete</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

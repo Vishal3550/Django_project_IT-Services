@@ -1,0 +1,31 @@
+<!-- templates/home.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+</head>
+<body>
+    <h1>Home Page</h1>
+    <h2>Filter Services</h2>
+    <form method="get" action="{% url 'home' %}">
+        <select name="status" onchange="this.form.submit()">
+            <option value="all" {% if filter_status == 'all' %}selected{% endif %}>All</option>
+            <option value="active" {% if filter_status == 'active' %}selected{% endif %}>Active</option>
+            <option value="inactive" {% if filter_status == 'inactive' %}selected{% endif %}>Inactive</option>
+        </select>
+    </form>
+    <h2>Services</h2>
+    <ul>
+        {% for service in services %}
+            <li>
+                <a href="{% url 'service_detail' service.pk %}">{{ service.name }}</a>
+                {% if service.active %}
+                    (Active)
+                {% else %}
+                    (Inactive)
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
